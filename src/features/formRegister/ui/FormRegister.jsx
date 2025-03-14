@@ -1,11 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useEffect, useState, useRef } from 'react';
 import { FormActions } from '../model/formSlice';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 const FormRegister = () => {
-	const error = useSelector(state => state.form.error);
 	const location = useLocation();
 	const params = new URLSearchParams(location.search);
 	const hasFetched = useRef(false);
@@ -30,10 +29,7 @@ const FormRegister = () => {
 	const handleSubmit = e => {
 		e.preventDefault();
 		dispatch(FormActions.submit(formData));
-		console.log(error);
-		if (error.status === 409) {
-			alert('пользователь с такой почтой уже существует!');
-		}
+		
 	};
 
 	const loginGoogleLogin = e => {

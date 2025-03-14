@@ -92,8 +92,8 @@ const FormToolsSend = () => {
 					onChange={handleChange}
 				/>
 				<input name='files' onChange={(e)=> {
-					setFiles(e.target.files)
-					console.log(e.target.files);
+					setFiles(e.target.files[0])
+					console.log(e.target.files[0]);
 					
 				}} type='file' />
 				<button type='submit'>я лох</button>

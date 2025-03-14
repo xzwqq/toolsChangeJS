@@ -8,7 +8,10 @@ import {
 
 function* toolsSendSaga(action) {
 	try {
-		const response = yield call(sendTools, action.payload);
+		const data = new FormData();
+		data.append("tool", new Blob([JSON.stringify(action.payload.tool)], { type: "application/json" }));
+		data.append('files', action.payload.files);
+		const response = yield call(sendTools, data);
 		yield put(ToolsSendActions.setSuccess(response));
 	} catch (error) {
 		yield put(ToolsSendActions.setError(error));
@@ -28,7 +31,7 @@ function* toolsSelectManufacturer() {
 	try {
 		const response = yield call(getToolsManufacturers);
 		yield put(ToolsSendActions.setSelectM(response));
-		console.log(response)
+		console.log(response);
 	} catch (error) {
 		yield put(ToolsSendActions.setError(error));
 	}
