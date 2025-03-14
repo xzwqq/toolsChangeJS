@@ -36,12 +36,11 @@ const FormRegister = () => {
 		}
 	};
 
-	// Функция для авторизации через Google
 	const loginGoogleLogin = e => {
 		e.preventDefault();
 		const clientId = '516154092590-oohtfj363v391j61f005jjgnbpb9jbb6.apps.googleusercontent.com';
 		const redirectUri = 'http://localhost:5174/registration';
-		const state = 'a2FsZmZsd2xmd2x3Zmx3ZmFhbGZ3bGZ3YWxmd2Fsd2FmbHdmYWw'; // Можете использовать UUID
+		const state = 'a2FsZmZsd2xmd2x3Zmx3ZmFhbGZ3bGZ3YWxmd2Fsd2FmbHdmYWw'; 
 		const scope = 'openid profile email';
 
 		window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=${clientId}&state=${state}&redirect_uri=${redirectUri}&scope=${scope}`;
@@ -49,10 +48,9 @@ const FormRegister = () => {
 
 	useEffect(() => {
 		if (authCode && !hasFetched.current) {
-			hasFetched.current = true; // Блокируем повторный вызов
-			axios
-				.post(
-					`http://10.3.34.137:8080/api/v1/openid?authCode=${authCode}&state=${stateParam}`
+			hasFetched.current = true; 
+			axios.post(
+					`${import.meta.env.VITE_API_URL}/openid?authCode=${authCode}&state=${stateParam}`
 				)
 				.then(response => {
 					localStorage.setItem('token', response.data);
@@ -67,7 +65,6 @@ const FormRegister = () => {
 
 	return (
 		<div className='forms-register'>
-			<p className='register'>Регистрация</p>
 			<form onSubmit={handleSubmit}>
 				<div className='gmail'>
 					<input

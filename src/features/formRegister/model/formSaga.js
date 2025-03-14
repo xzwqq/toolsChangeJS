@@ -5,7 +5,10 @@ import { history } from '../../../app/providers/history.js';
 
 function* handleSubmitForm(action) {
 	try {
-		const response = yield call(submitForm, action.payload);
+		const data = new FormData()
+		data.append('tool', action.payload.tool, {type: 'aplication/json'})
+		data.append('files', action.payload.files)
+		const response = yield call(submitForm, data);
 		yield put(FormActions.submitFormSuccess(response));
 		yield call([history, history.push], '/')
 	} catch (error) {

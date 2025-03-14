@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { ToolsSendActions } from '../model/toolsSendSlice.js';
 
 const FormToolsSend = () => {
-	const token = localStorage.getItem('token');
 	const dispatch = useDispatch();
 	const toolSelected = useSelector(state => state.toolsSend.selectC);
 	const manufacturers = useSelector(state => state.toolsSend.selectM);
@@ -15,59 +13,23 @@ const FormToolsSend = () => {
 		categoryId: '',
 		manufacturerId: '',
 		description: '',
-		files: null
 	});
+	const [files, setFiles ] = useState()
 
-	const $api = axios.create({
-		headers: {
-			authorization: `Bearer ${token}`
-		}
-	});
 
-	const submitForm = async (e) => {
+	const submitForm = async e => {
 		e.preventDefault();
-	  
-		const formData = new FormData();
-		
-		// Добавляем JSON как строку в formData
-		const tool = {
-		  type: formData.type,
-		  condition: formData.condition,
-		  price: formData.price,
-		  categoryId: formData.categoryId,
-		  manufacturerId: formData.manufacturerId,
-		  description: formData.description
-		};
-		
-		formData.append('tool', new Blob([JSON.stringify(tool)], { type: 'application/json' }));
-		console.log(formData.files)
-		
-		// Добавляем файл
-		if (formData.files) {
-		  formData.append('files', formData.files);
+		const data ={
+			tool: formData,
+			files,
 		}
-	  
-		try {
-		  const response = await $api.post('http://10.3.34.137:8080/api/v1/tools', formData, {
-			headers: {
-			  'Content-Type': 'multipart/form-data'
-			}
-		  });
-	  
-		  console.log(response.data);
-		} catch (err) {
-		  console.error(err);
-		}
-	  };
+
+		dispatch(ToolsSendActions.submit(data))
+	}
 
 	const handleChange = e => {
-		const { name, value, type, files } = e.target;
-		console.log(value)
-		setFormData(prev => ({
-			...prev,
-			[name]: type === 'file' ? files[0] : value 
-			
-		}));
+		const { name, value } = e.target;
+		setFormData(prev => ({...prev,[name]:  value}));
 	};
 
 	useEffect(() => {
@@ -114,7 +76,7 @@ const FormToolsSend = () => {
 					onChange={handleChange}
 				>
 					<option value=''>Выберите производителя</option>
-					{manufacturers?.map((manufacturer) => {
+					{manufacturers?.map(manufacturer => {
 						return (
 							<option key={manufacturer.id} value={manufacturer.id}>
 								{manufacturer.name}
@@ -129,7 +91,11 @@ const FormToolsSend = () => {
 					type='text'
 					onChange={handleChange}
 				/>
-				<input name='files' onChange={handleChange} type='file' />
+				<input name='files' onChange={(e)=> {
+					setFiles(e.target.files)
+					console.log(e.target.files);
+					
+				}} type='file' />
 				<button type='submit'>я лох</button>
 			</form>
 		</>

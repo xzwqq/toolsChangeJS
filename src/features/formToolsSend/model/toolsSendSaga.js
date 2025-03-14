@@ -2,12 +2,13 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { ToolsSendActions } from '../model/toolsSendSlice.js';
 import {
 	getToolsCategories,
-	getToolsManufacturers
+	getToolsManufacturers,
+	sendTools
 } from '../../../shared/api/ToolsSendAPI.js';
 
-function* toolsSendSaga() {
+function* toolsSendSaga(action) {
 	try {
-		const response = yield call(getToolsManufacturers);
+		const response = yield call(sendTools, action.payload);
 		yield put(ToolsSendActions.setSuccess(response));
 	} catch (error) {
 		yield put(ToolsSendActions.setError(error));
