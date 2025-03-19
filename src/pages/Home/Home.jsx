@@ -1,11 +1,10 @@
-
-import {FormToolsSend} from '../../features/formToolsSend/index.js';
+import { Container } from '../../features/container/index.js';
 
 const Home = () => {
 	
 	return (
 		<div>
-			<FormToolsSend />
+			<Container />
 		</div>
 	);
 };

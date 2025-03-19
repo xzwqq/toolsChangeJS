@@ -6,7 +6,7 @@ const toolsSendSlice = createSlice({
 		selectC: [],
 		selectM: [],
 		response: [],
-		error: null,
+		error: '',
 		container: [],
 	},
 	reducers: {
@@ -22,9 +22,6 @@ const toolsSendSlice = createSlice({
 		setError: (state, action) => {
 			state.error = action.payload;
 		},
-		setContainer: ( state,action) =>{
-			state.container = action.payload
-		}
 	}
 });
 export const ToolsSendActions = {
@@ -32,7 +29,5 @@ export const ToolsSendActions = {
 	submit: createAction(`${toolsSendSlice.name}/submit`),
 	submitSelectC: createAction(`${toolsSendSlice.name}/submitSelectC`),
 	submitSelectM: createAction(`${toolsSendSlice.name}/submitSelectM`),
-	submitContainer: createAction(`${toolsSendSlice.name}/submitContainer`),
-	submitDelete: createAction(`${toolsSendSlice.name}/submitDelete`),
 };
 export default toolsSendSlice.reducer;

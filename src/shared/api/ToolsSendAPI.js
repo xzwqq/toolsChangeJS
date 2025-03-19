@@ -24,8 +24,3 @@ export const sendTools = async (formdata) => {
 	return response.data
 };
 
-
-export const getAllContainer = async () => {
-	const response = await rootAxios.get(`/tools`)
-	return response.data
-}

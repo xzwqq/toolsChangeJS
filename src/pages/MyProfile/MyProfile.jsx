@@ -1,24 +1,13 @@
-import { useEffect, useState } from 'react'
-import {ApiHome} from '../../shared/api/APIHome.js'
-const MyProfile = () => {
-    const [container, setContainer] = useState([])
+import { Container } from "../../features/container/index.js"
+import {FormToolsSend} from '../../features/formToolsSend/index.js'
 
-    useEffect(()=>{
-        setContainer(ApiHome())
-        console.log(container)
-    },[container])
+const MyProfile = () => {
+    
   return (
     <div>
         <h1>My profile</h1>
-        {container?.map(content => {
-					console.log(content.photos);
-					return(
-						<div key={content.id} className="cont">
-						 <h2>{content.owner.firstname}</h2>
-						 <img src={content.photos} className='img' alt="" />
-						 </div>
-						)
-				})}
+        <FormToolsSend />
+        <Container type={'my'}/>
     </div>
   )
 }

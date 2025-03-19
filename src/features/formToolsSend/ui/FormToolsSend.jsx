@@ -7,7 +7,6 @@ const FormToolsSend = () => {
 	const dispatch = useDispatch();
 	const toolSelected = useSelector(state => state.toolsSend.selectC);
 	const manufacturers = useSelector(state => state.toolsSend.selectM);
-	const container = useSelector(state => state.toolsSend.container);
 	const [formData, setFormData] = useState({
 		type: '',
 		condition: '',
@@ -34,7 +33,6 @@ const FormToolsSend = () => {
 	};
 
 	useEffect(() => {
-		dispatch(ToolsSendActions.submitContainer());
 		dispatch(ToolsSendActions.submitSelectM());
 		dispatch(ToolsSendActions.submitSelectC());
 	}, [dispatch]);
@@ -42,6 +40,7 @@ const FormToolsSend = () => {
 	return (
 		<>
 			<form onSubmit={submitForm}>
+				
 				<select name='type' value={formData.type} onChange={handleChange}>
 					<option value=''>Выберите тип</option>
 					<option value='EXCHANGE'>Обмен</option>
@@ -49,20 +48,13 @@ const FormToolsSend = () => {
 					<option value='SALE'>продажа</option>
 				</select>
 
-				<select
-					name='condition'
-					value={formData.condition}
-					onChange={handleChange}
-				>
+				<select name='condition' value={formData.condition} onChange={handleChange}>
 					<option value=''>Выберите состояние</option>
 					<option value='USED'>б/у</option>
 					<option value='NEW'>новое</option>
 				</select>
-				<select
-					name='categoryId'
-					value={formData.categoryId}
-					onChange={handleChange}
-				>
+
+				<select name='categoryId' value={formData.categoryId} onChange={handleChange}>
 					<option value=''>Выберите инструмент</option>
 					{toolSelected?.map(tools => {
 						return (
@@ -72,11 +64,8 @@ const FormToolsSend = () => {
 						);
 					})}
 				</select>
-				<select
-					name='manufacturerId'
-					value={formData.manufacturerId}
-					onChange={handleChange}
-				>
+
+				<select name='manufacturerId' value={formData.manufacturerId} onChange={handleChange}>
 					<option value=''>Выберите производителя</option>
 					{manufacturers?.map(manufacturer => {
 						return (
@@ -86,35 +75,17 @@ const FormToolsSend = () => {
 						);
 					})}
 				</select>
+
 				<input name='price' onChange={handleChange} type='text' />
-				<input
-					name='description'
-					value={formData.description}
-					type='text'
-					onChange={handleChange}
-				/>
-				<input
-					name='files'
-					onChange={e => {
-						setFiles(e.target.files[0]);
-						console.log(e.target.files[0]);
-					}}
-					type='file'
-				/>
-				<button type='submit'>я лох</button>
+
+				<input name='description' value={formData.description} type='text' onChange={handleChange} />
+
+				<input name='files' type='file' onChange={e => setFiles(e.target.files[0])} />
+
+				<button type='submit'>Выложить</button>
+
 			</form>
-			<div className='container'>
-				{container?.map(content => {
-					console.log(content.photos);
-					return(
-						<div key={content.id} className="cont">
-						 <h2>{content.owner.firstname}</h2>
-						 <img src={content.photos} className='img' alt="" />
-						 <button onClick={()=> dispatch(ToolsSendActions.submitDelete(content.id))}>delete</button>
-						 </div>
-						)
-				})}
-			</div>
+			
 		</>
 	);
 };
