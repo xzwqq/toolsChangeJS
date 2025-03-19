@@ -1,15 +1,15 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { submitForm } from '../../../shared/api/formAPI.js';
-import { FormActions } from './formSlice.js';
+import { submitRegister } from '../../../shared/api/authAPI.js';
+import { RegisterActions } from './registerSlice.js';
 import { history } from '../../../app/providers/history.js';
 
 function* handleSubmitForm(action) {
 	try {
-		const response = yield call(submitForm, action.payload);
-		yield put(FormActions.submitFormSuccess(response));
+		const response = yield call(submitRegister, action.payload);
+		yield put(RegisterActions.setSuccess(response));
 		yield call([history, history.push], '/')
 	} catch (error) {
-		yield put(FormActions.submitFormFailure(error));
+		yield put(RegisterActions.setError(error));
 		if (error.status === 409) {
 		alert('мага с таким сиянием уже есть');
 		}
@@ -19,6 +19,6 @@ function* handleSubmitForm(action) {
 	}
 }
 
-export default function* watchSubmitForm() {
-	yield takeLatest(FormActions.submit, handleSubmitForm);
+export default function* watchRegister() {
+	yield takeLatest(RegisterActions.submit, handleSubmitForm);
 }

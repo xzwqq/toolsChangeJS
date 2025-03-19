@@ -1,3 +1,3 @@
 export { default as FormRegister } from './ui/FormRegister';
-export { default as watchSubmitForm } from './model/formSaga.js';
-export { default as formSlice } from './model/formSlice.js';
+export { default as watchRegister } from './model/registerSaga.js';
+export { default as registerSlice } from './model/registerSlice.js';

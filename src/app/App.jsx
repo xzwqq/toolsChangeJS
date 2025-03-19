@@ -8,6 +8,7 @@ import Registration from '../pages/Registration/Registration.jsx';
 import Home from '../pages/Home/Home.jsx';
 import Login from '../pages/Login/Login.jsx';
 import { history } from './providers/history.js';
+import MyProfile from '../pages/MyProfile/MyProfile.jsx';
 
 function App() {
 	return (
@@ -17,6 +18,7 @@ function App() {
 					<Route path='/' element={<Home />}></Route>
 					<Route path='/registration' element={<Registration />}></Route>
 					<Route path='/login' element={<Login />}></Route>
+					<Route path='/my' element={<MyProfile />}></Route>
 				</Routes>
 			</HistoryRouter>
 		</>

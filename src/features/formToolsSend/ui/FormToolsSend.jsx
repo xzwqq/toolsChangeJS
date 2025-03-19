@@ -1,38 +1,40 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ToolsSendActions } from '../model/toolsSendSlice.js';
+import './formTools.scss'
 
 const FormToolsSend = () => {
 	const dispatch = useDispatch();
 	const toolSelected = useSelector(state => state.toolsSend.selectC);
 	const manufacturers = useSelector(state => state.toolsSend.selectM);
+	const container = useSelector(state => state.toolsSend.container);
 	const [formData, setFormData] = useState({
 		type: '',
 		condition: '',
 		price: '',
 		categoryId: '',
 		manufacturerId: '',
-		description: '',
+		description: ''
 	});
-	const [files, setFiles ] = useState()
-
+	const [files, setFiles] = useState();
 
 	const submitForm = async e => {
 		e.preventDefault();
-		const data ={
+		const data = {
 			tool: formData,
-			files,
-		}
+			files
+		};
 
-		dispatch(ToolsSendActions.submit(data))
-	}
+		dispatch(ToolsSendActions.submit(data));
+	};
 
 	const handleChange = e => {
 		const { name, value } = e.target;
-		setFormData(prev => ({...prev,[name]:  value}));
+		setFormData(prev => ({ ...prev, [name]: value }));
 	};
 
 	useEffect(() => {
+		dispatch(ToolsSendActions.submitContainer());
 		dispatch(ToolsSendActions.submitSelectM());
 		dispatch(ToolsSendActions.submitSelectC());
 	}, [dispatch]);
@@ -91,13 +93,28 @@ const FormToolsSend = () => {
 					type='text'
 					onChange={handleChange}
 				/>
-				<input name='files' onChange={(e)=> {
-					setFiles(e.target.files[0])
-					console.log(e.target.files[0]);
-					
-				}} type='file' />
+				<input
+					name='files'
+					onChange={e => {
+						setFiles(e.target.files[0]);
+						console.log(e.target.files[0]);
+					}}
+					type='file'
+				/>
 				<button type='submit'>я лох</button>
 			</form>
+			<div className='container'>
+				{container?.map(content => {
+					console.log(content.photos);
+					return(
+						<div key={content.id} className="cont">
+						 <h2>{content.owner.firstname}</h2>
+						 <img src={content.photos} className='img' alt="" />
+						 <button onClick={()=> dispatch(ToolsSendActions.submitDelete(content.id))}>delete</button>
+						 </div>
+						)
+				})}
+			</div>
 		</>
 	);
 };

@@ -1,19 +1,15 @@
 import axios from 'axios';
+import { rootAxios } from './rootAxios';
 
 const token = localStorage.getItem('token');
-const $api = axios.create({
-	headers: {
-		authorization: `Bearer ${token}`
-	}
-});
+
 export const getToolsCategories = async () => {
-	const response = await $api.get(`${import.meta.env.VITE_API_URL}/categories`);
+	const response = await rootAxios.get(`/categories`);
 	return response.data;
 };
+
 export const getToolsManufacturers = async () => {
-	const response = await $api.get(
-		`${import.meta.env.VITE_API_URL}/manufacturers`
-	);
+	const response = await rootAxios.get(`/manufacturers`);
 	return response.data;
 };
 
@@ -27,3 +23,9 @@ export const sendTools = async (formdata) => {
 	});	
 	return response.data
 };
+
+
+export const getAllContainer = async () => {
+	const response = await rootAxios.get(`/tools`)
+	return response.data
+}

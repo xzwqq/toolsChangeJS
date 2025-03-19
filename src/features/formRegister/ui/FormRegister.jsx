@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useEffect, useState, useRef } from 'react';
-import { FormActions } from '../model/formSlice';
+import { RegisterActions } from '../model/registerSlice';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
@@ -28,7 +28,7 @@ const FormRegister = () => {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		dispatch(FormActions.submit(formData));
+		dispatch(RegisterActions.submit(formData));
 		
 	};
 
