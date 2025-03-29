@@ -1,9 +1,9 @@
-import { useState, useRef,useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { LoginActions } from '../model/loginSlice.js';
 import { useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios'
-import './login.scss';
+import axios from 'axios';
+import { history } from '../../../app/providers/history.js';
 
 const FormLogin = () => {
 	const location = useLocation();
@@ -11,7 +11,7 @@ const FormLogin = () => {
 	const hasFetched = useRef(false);
 	const authCode = params.get('code');
 	const stateParam = params.get('state'); // Получаем state
-	const navigate = useNavigate
+	const navigate = useNavigate;
 	const dispatch = useDispatch();
 	const [formData, setFormData] = useState({
 		login: '',
@@ -58,46 +58,53 @@ const FormLogin = () => {
 	}, [authCode, stateParam, navigate]);
 	return (
 		<>
-			<div className='form-login'>
-				<form onSubmit={handleSubmit}>
-					<div className='gmail'>
-						<input
-							className='gmail-input'
-							type='email'
-							name='login'
-							onChange={handleChange}
-							value={formData.login}
-							required
-							placeholder='Почта'
-							maxLength='100'
-							minLength='3'
-						/>
+			<div className='form-login_root'>
+				<form onSubmit={handleSubmit} className='form-login'>
+					<input
+						className='gmail-input'
+						type='email'
+						name='login'
+						onChange={handleChange}
+						value={formData.login}
+						required
+						placeholder='Почта'
+						maxLength='100'
+						minLength='3'
+					/>
+					<input
+						className='gmail-input'
+						type='password'
+						name='password'
+						onChange={handleChange}
+						value={formData.password}
+						required
+						placeholder='Пароль'
+						maxLength='100'
+						minLength='3'
+					/>
+					<div className='option_login'>
+						<label className='container-check'>
+							<input type='checkbox' />
+							<span className='checkmark'>запомнить пароль?</span>
+						</label>
+						<div className='forgot_password'>
+							<a>
+								<p className='forgot_password_text'>Забыли пароль?</p>
+							</a>
+						</div>
 					</div>
-					<div className='password'>
-						<input
-							className='gmail-input'
-							type='password'
-							name='password'
-							onChange={handleChange}
-							value={formData.password}
-							required
-							placeholder='Пароль'
-							maxLength='100'
-							minLength='3'
-						/>
-					</div>
-					<div className='login-btn'>
-						<button className='login-btn-input' type='submit'>Войти</button>
-					</div>
+					<button className='login-btn-input' type='submit'>
+						Войти
+					</button>
 				</form>
 				<div className='after-form'>
 					<div className='google-form'>
-						<p>Или продолжить через:</p>
-						<button onClick={loginGoogleLogin}>Sign in with Google 🚀</button>
+						<p className='google-text'>Или продолжить через:</p>
+						<img src='../../../../public/svgImage/jam_google.svg' className='logo_google' alt='google-auth' onClick={loginGoogleLogin}/>
 					</div>
-					<div className="regis">
-						<p>Нету аккаунта?</p>
-						<button>Зарегистрироваться</button>
+					<div className='google-form'>
+						<p className='google-text'>Нету аккаунта?</p>
+						<button onClick={()=> history.push('/registration')} className='redirect-reg'>Зарегистрироваться</button>
 					</div>
 				</div>
 			</div>

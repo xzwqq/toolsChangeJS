@@ -5,7 +5,7 @@ import './formTools.scss'
 
 const FormToolsSend = () => {
 	const dispatch = useDispatch();
-	const toolSelected = useSelector(state => state.toolsSend.selectC);
+	const toolSelecteC = useSelector(state => state.toolsSend.selectC);
 	const manufacturers = useSelector(state => state.toolsSend.selectM);
 	const [formData, setFormData] = useState({
 		type: '',
@@ -27,6 +27,10 @@ const FormToolsSend = () => {
 		dispatch(ToolsSendActions.submit(data));
 	};
 
+	const handleFileChange = e => {
+		const selectedFiles = Array.from(e.target.files); // Преобразуем FileList в массив
+		setFiles(selectedFiles); // Сохраняем все выбранные файлы
+	};
 	const handleChange = e => {
 		const { name, value } = e.target;
 		setFormData(prev => ({ ...prev, [name]: value }));
@@ -40,7 +44,7 @@ const FormToolsSend = () => {
 	return (
 		<>
 			<form onSubmit={submitForm}>
-				
+
 				<select name='type' value={formData.type} onChange={handleChange}>
 					<option value=''>Выберите тип</option>
 					<option value='EXCHANGE'>Обмен</option>
@@ -56,7 +60,7 @@ const FormToolsSend = () => {
 
 				<select name='categoryId' value={formData.categoryId} onChange={handleChange}>
 					<option value=''>Выберите инструмент</option>
-					{toolSelected?.map(tools => {
+					{toolSelecteC?.map(tools => {
 						return (
 							<option key={tools.id} value={tools.id}>
 								{tools.name}
@@ -80,7 +84,7 @@ const FormToolsSend = () => {
 
 				<input name='description' value={formData.description} type='text' onChange={handleChange} />
 
-				<input name='files' type='file' onChange={e => setFiles(e.target.files[0])} />
+				<input name='files' type='file' multiple onChange={handleFileChange} />
 
 				<button type='submit'>Выложить</button>
 

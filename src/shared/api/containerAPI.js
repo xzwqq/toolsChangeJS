@@ -2,7 +2,7 @@ import { rootAxios } from "./rootAxios";
 
 export const myContainer =async () => { 
     const response = await rootAxios.get(`/tools/my`)
-    return response.data
+    return response.data.content
 };
 
 
@@ -13,5 +13,5 @@ export const deleteContainer =async (data) =>{
 
 export const AllContainer = async () => {
 	const response = await rootAxios.get(`/tools`)
-	return response.data
+	return response.data.content
 }

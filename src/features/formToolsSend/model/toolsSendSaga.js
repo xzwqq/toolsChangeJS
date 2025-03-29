@@ -5,8 +5,10 @@ import { getToolsCategories, getToolsManufacturers, sendTools } from '../../../s
 function* toolsSendSaga(action) {
 	try {
 		const data = new FormData();
-		data.append('tool',new Blob([JSON.stringify(action.payload.tool)], {type: 'application/json'}));
-		data.append('files', action.payload.files);
+		data.append('tool',new Blob([JSON.stringify(action.payload.tool)], {type: 'application/json'}));		
+		for (let i = 0; i < action.payload.files.length; i++) {
+			data.append('files', action.payload.files[i]);
+		}
 		const response = yield call(sendTools, data);
 		yield put(ToolsSendActions.setSuccess(response));
 	} catch (error) {
