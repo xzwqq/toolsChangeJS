@@ -1,13 +1,12 @@
 import { Container } from "../../features/container/index.js"
-import {FormToolsSend} from '../../features/formToolsSend/index.js'
+import { Header } from "../../widgets/Header/index.js"
 
 const MyProfile = () => {
     const type =  'my'  
 
   return (
-    <div>
-        <h1>My profile</h1>
-        <FormToolsSend />
+    <div className="root__my">
+        <Header/>
         <Container type={type}/>
     </div>
   )

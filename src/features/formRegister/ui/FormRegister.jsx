@@ -29,14 +29,14 @@ const FormRegister = () => {
 	const handleSubmit = e => {
 		e.preventDefault();
 		dispatch(RegisterActions.submit(formData));
-		
 	};
 
 	const loginGoogleLogin = e => {
 		e.preventDefault();
-		const clientId = '516154092590-oohtfj363v391j61f005jjgnbpb9jbb6.apps.googleusercontent.com';
+		const clientId =
+			'516154092590-oohtfj363v391j61f005jjgnbpb9jbb6.apps.googleusercontent.com';
 		const redirectUri = 'http://localhost:5174/registration';
-		const state = 'a2FsZmZsd2xmd2x3Zmx3ZmFhbGZ3bGZ3YWxmd2Fsd2FmbHdmYWw'; 
+		const state = 'a2FsZmZsd2xmd2x3Zmx3ZmFhbGZ3bGZ3YWxmd2Fsd2FmbHdmYWw';
 		const scope = 'openid profile email';
 
 		window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=${clientId}&state=${state}&redirect_uri=${redirectUri}&scope=${scope}`;
@@ -44,8 +44,9 @@ const FormRegister = () => {
 
 	useEffect(() => {
 		if (authCode && !hasFetched.current) {
-			hasFetched.current = true; 
-			axios.post(
+			hasFetched.current = true;
+			axios
+				.post(
 					`${import.meta.env.VITE_API_URL}/openid?authCode=${authCode}&state=${stateParam}`
 				)
 				.then(response => {
@@ -58,12 +59,12 @@ const FormRegister = () => {
 				});
 		}
 	}, [authCode, stateParam, navigate]);
-
 	return (
-		<div className='forms-register'>
-			<form onSubmit={handleSubmit}>
-				<div className='gmail'>
+		<>
+			<div className='form-login_root'>
+				<form onSubmit={handleSubmit} className='form-login'>
 					<input
+						className='gmail-input'
 						type='email'
 						name='login'
 						onChange={handleChange}
@@ -73,8 +74,6 @@ const FormRegister = () => {
 						maxLength='100'
 						minLength='3'
 					/>
-				</div>
-				<div className='surname'>
 					<input
 						type='text'
 						name='lastname'
@@ -84,9 +83,8 @@ const FormRegister = () => {
 						placeholder='Фамилия'
 						minLength='3'
 						maxLength='100'
+						className='gmail-input'
 					/>
-				</div>
-				<div className='name'>
 					<input
 						type='text'
 						name='firstname'
@@ -96,10 +94,10 @@ const FormRegister = () => {
 						placeholder='Имя'
 						minLength='1'
 						maxLength='100'
+						className='gmail-input'
 					/>
-				</div>
-				<div className='password'>
 					<input
+						className='gmail-input'
 						type='password'
 						name='password'
 						onChange={handleChange}
@@ -109,13 +107,43 @@ const FormRegister = () => {
 						maxLength='100'
 						minLength='3'
 					/>
+					<div className='option_login'>
+						<label className='container-check'>
+							<input type='checkbox' />
+							<span className='checkmark'>запомнить пароль?</span>
+						</label>
+						<div className='forgot_password'>
+							<a>
+								<p className='forgot_password_text'>Забыли пароль?</p>
+							</a>
+						</div>
+					</div>
+					<button className='login-btn-input' type='submit'>
+						Войти
+					</button>
+				</form>
+				<div className='after-form'>
+					<div className='google-form'>
+						<p className='google-text'>Или продолжить через:</p>
+						<img
+							src='../../../../public/svgImage/jam_google.svg'
+							className='logo_google'
+							alt='google-auth'
+							onClick={loginGoogleLogin}
+						/>
+					</div>
+					<div className='google-form'>
+						<p className='google-text'>Есть аккаунт?</p>
+						<button
+							onClick={() => history.push('/login')}
+							className='redirect-reg'
+						>
+							Войти
+						</button>
+					</div>
 				</div>
-				<div className='submit'>
-					<input type='submit' value='Зарегистрироваться' />
-				</div>
-			</form>
-			<button onClick={loginGoogleLogin}>Sign in with Google 🚀</button>
-		</div>
+			</div>
+		</>
 	);
 };
 

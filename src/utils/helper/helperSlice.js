@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState ={
-    isLoading : true,
+    isLoading : false,
     errorNetwork: null,
 }
 
@@ -14,7 +14,8 @@ const helperSlice = createSlice({
         },
         setErrorNetwork: (state, action) =>{
             state.errorNetwork = action.payload
-        } 
+        },
+        reset: () => initialState,
     }
 })
 

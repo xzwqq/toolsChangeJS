@@ -1,5 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { ToolsSendActions } from '../model/toolsSendSlice.js';
+import { HelperActions } from '../../../utils/helper/helperSlice.js';
 import { getToolsCategories, getToolsManufacturers, sendTools } from '../../../shared/api/toolsSendAPI.js';
 
 function* toolsSendSaga(action) {
@@ -20,6 +21,7 @@ function* toolsSelectC() {
 	try {
 		const selectC = yield call(getToolsCategories);
 		yield put(ToolsSendActions.setSelectC(selectC));
+		yield put(HelperActions.setIsloadingSucsses())
 	} catch (error) {
 		yield put(ToolsSendActions.setError(error));
 	}
@@ -29,6 +31,7 @@ function* toolsSelectM() {
 	try {
 		const selectM = yield call(getToolsManufacturers);
 		yield put(ToolsSendActions.setSelectM(selectM));
+		yield put(HelperActions.setIsloadingSucsses())
 	} catch (error) {
 		yield put(ToolsSendActions.setError(error));
 	}

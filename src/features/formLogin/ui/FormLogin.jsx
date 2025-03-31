@@ -4,6 +4,7 @@ import { LoginActions } from '../model/loginSlice.js';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { history } from '../../../app/providers/history.js';
+import { HelperActions } from '../../../utils/helper/helperSlice.js';
 
 const FormLogin = () => {
 	const location = useLocation();
@@ -56,6 +57,9 @@ const FormLogin = () => {
 				});
 		}
 	}, [authCode, stateParam, navigate]);
+	useEffect(()=>{
+		dispatch(HelperActions.setIsloadingSucsses())
+	},[dispatch])
 	return (
 		<>
 			<div className='form-login_root'>
