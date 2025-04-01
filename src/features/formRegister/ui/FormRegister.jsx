@@ -2,6 +2,8 @@ import { useDispatch } from 'react-redux';
 import { useEffect, useState, useRef } from 'react';
 import { RegisterActions } from '../model/registerSlice';
 import { useNavigate, useLocation } from 'react-router-dom';
+import {HelperActions} from '../../../utils/helper/helperSlice.js'
+import { history } from '../../../app/providers/history.js';
 import axios from 'axios';
 
 const FormRegister = () => {
@@ -41,6 +43,9 @@ const FormRegister = () => {
 
 		window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=${clientId}&state=${state}&redirect_uri=${redirectUri}&scope=${scope}`;
 	};
+	useEffect(()=>{
+			dispatch(HelperActions.setIsloadingSucsses())
+		},[dispatch])
 
 	useEffect(() => {
 		if (authCode && !hasFetched.current) {

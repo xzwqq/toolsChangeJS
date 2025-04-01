@@ -51,16 +51,16 @@
 .send-photo {
 	width: rem(139);
 	height: rem(105);
-    margin-bottom: rem(50);
+	margin-bottom: rem(50);
 }
 .file-input {
 	display: none;
 }
-.file-input-label{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+.file-input-label {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 }
 .btn-photo {
 	color: #fff;
@@ -69,10 +69,10 @@
 	font-weight: 400;
 	line-height: normal;
 }
-.selectsend::placeholder{
-    color: #fff;
+.selectsend::placeholder {
+	color: #fff;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+	-webkit-appearance: none;
 }

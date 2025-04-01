@@ -27,29 +27,35 @@
 		margin-left: rem(40);
 		width: rem(25);
 		height: rem(25);
+		cursor: pointer;
 	}
 	&_telega {
 		margin-left: rem(40);
 		width: rem(25);
 		height: rem(25);
+		cursor: pointer;
 	}
 	&_hz {
 		width: rem(42);
 		height: rem(42);
+		cursor: pointer;
 	}
 	&_hz {
 		width: rem(42);
 		height: rem(42);
-        margin-right: rem(64);
+		margin-right: rem(64);
+		cursor: pointer;
 	}
 	&_idc {
 		width: rem(20);
 		height: rem(20);
+		cursor: pointer;
 	}
-	&_icon{
+	&_icon {
 		margin-left: rem(40);
 		width: rem(40);
 		height: rem(40);
+		cursor: pointer;
 	}
 }
 
@@ -78,7 +84,7 @@
 	flex-direction: row;
 	align-items: center;
 	border-radius: rem(10);
-    margin-right: rem(64);
+	margin-right: rem(64);
 
 	&_but {
 		border: none;
@@ -92,19 +98,19 @@
 	justify-content: space-between;
 	flex-direction: row;
 	align-items: center;
-    border-radius: 10px;
+	border-radius: 10px;
 	border: 2px solid #ffbf00;
-    width: rem(588);
-    height: rem(40);
+	width: rem(588);
+	height: rem(40);
 }
 .searchforheader {
 	border-radius: 0px 10px 10px 30px;
 	background: #ffbf00;
 	color: white;
 	border-color: transparent;
-    height: rem(40);
+	height: rem(40);
 }
 .inputforHeader {
 	border-color: transparent;
-    width: rem(480);
+	width: rem(480);
 }
